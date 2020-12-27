@@ -12,24 +12,69 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
      <link rel="stylesheet" href="{% static 'css/master.css' %}"> 
+     <style>
+      
+        
+        div {
+          background-color: #d5f4f5;
+          width:fit-content;
+         
+        }
+        
+        
+
+        p{
+           
+           
+            background-color:rgb(143, 252, 221);
+            background-size:contain;
+        
+            border-color: black;
+            border-width:1px;
+            border-style:groove;
+            
+
+            width:300px;
+           
+
+        }
+
+        
+        
+      
+        </style>
+        <link rel="stylesheet" href="master.css">
 
 </head>
+<section>
 <body>
     <nav class='navbar custnav' role='navigation' id='navbar'>
         <div class='container'>
             <a class='navbar-brand custnav' href="{% url 'home'%}">Home</a>
 
-            <ul  class='nav navbar-nav navbar-right' >
-                {% if user.is_authenticated%} <!-- if user is logged in-->
+            <ul  class='nav navbar-nav navbar-center' >
+
+                {% if user.is_authenticated%}  <!-- if user is logged in-->
+              
                 <li><a href="{%url 'posts:create'%}">Post</a></li>
                 <li><a href="{%url 'groups:all'%}">Groups</a></li>
                 <li><a href="{%url 'groups:create'%}">Create Group</a></li>
                 <li><a href="{% url 'accounts:logout'%}">Log Out</a></li>
+                <li><a href="{%url 'posts:for_user' username=user.username%}">Profile</a></li>
+                <li><a href="{%url 'posts:all'%}">Feed</a></li>
                 
+                <li><form method="GET" action="/search" class="form-inline my-2 my-lg-0">
+                    <input type="Search" class="form-control mr-sm-2" placegolder="search" name='search' id="search" >
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Post</button>
+                </form> </li>
+
+                
+               
                 {%else%}
                 <li><a href="{%url 'groups:all'%}">Groups</a></li>
                 <li><a href="{%url 'accounts:login'%}">Log In</a></li>
                 <li><a href="{% url 'accounts:signup'%}">Sign Up</a></li>
+               
                 
 
                 {% endif %}
@@ -44,5 +89,6 @@
 
         {%endblock%}
     </div>
+</section>
 </body>
 </html>

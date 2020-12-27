@@ -24,9 +24,11 @@
 <h2>Be the first to ask your question!</h2>
 
 {%else %}
+{% if user in group.members.all %}
 {% for post in group.posts.all%}
 {%include "posts/_post.html"%}
 {%endfor%}
+{%endif%}
 {%endif%}
 </div>
 {%endblock%}

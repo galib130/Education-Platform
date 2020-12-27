@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'groups',
     'posts',
+    'ckeditor',
 
 ]
 
@@ -123,7 +124,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIR=[os.path.join(BASE_DIR,'static'),]
+STATICFILES_DIRS=[os.path.join(BASE_DIR,'static'),]
 #redirect to
 LOGIN_REDIRECT_URL= 'in'
 LOGOUT_REDIRECT_URL='out'
+
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+
+

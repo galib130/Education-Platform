@@ -31,10 +31,11 @@ class JoinGroup(LoginRequiredMixin,generic.RedirectView):
         try:
             GroupMember.objects.create(user=self.request.user,group=group)
 
-        except:
+        except :
             messages.warning(self.request,'Warning already a member!')
         else:
             messages.success(self.request,'You are henceforth a member')
+            
         return super().get(request,*args,**kwargs)
 
 

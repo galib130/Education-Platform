@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from . import views
 
+
 app_name='posts'
 
 urlpatterns = [
@@ -10,11 +11,12 @@ urlpatterns = [
     url(r'^by/(?P<username>[-\w]+)/$',views.UserPosts.as_view(),name='for_user'),
     url(r'^by/(?P<username>[-\w]+)/(?P<pk>\d+)/$',views.PostDetail.as_view(),name='single'),
     url(r'^delete/(?P<pk>\d+)/$',views.DeletePost.as_view(),name='delete'),
+    url(r'^by/(?P<pk>\d+)/comment/$',views.add_comment_to_post,name='add_comment'),
+    
+    url(r'^comment/(?P<pk>\d+)/approve/$',views.comment_approve,name='comment_approve'),
+    url(r'^comment/(?P<pk>\d+)/remove/$',views.comment_remove,name='comment_remove'),
+    url(r'^comment/(?P<pk>\d+)/like/$',views.LikePost,name='like'),
+    ]
     
 
 
-    
-    
-  
-  
-]

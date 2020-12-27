@@ -1,0 +1,15 @@
+{% extends "posts/post_base.html"%}
+
+
+
+{%block post_content%}
+<div class="col-md-8">
+    {%for post in allPosts%}
+    {% if user in post.group.members.all %}
+    {%include "posts/_post.html"%}
+    {%endif%}
+
+    {%endfor%}
+</div>
+
+{%endblock%}
