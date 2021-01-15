@@ -1,4 +1,6 @@
 {%extends "groups/group_base.html"%}
+<link rel="stylesheet" href="master.css">
+
 
 {%block pregroup%}
 
@@ -25,22 +27,41 @@
     </a>
     {%endif%}
  
-</div>
+
+
 {%endblock%}
+
+
 {%block group_content%}
+<style>
+    .groupy{
+        padding-left: 20%;
+        width:1000px;
+        background-color: rgb(247, 247, 247);
+
+        
+    }
+    .list-group{
+        padding-left:120%
+    }
+</style>
 <div class="col-md-9">
     <div class="list-group">
         {%for group in object_list%}
+        
         <a href="{% url 'groups:single' slug=group.slug%}">
-            <h3>{{group.name}}</h3>
-            <div class="container-fluid">
-                {{group.description_html|safe}}
+           <div class="groupy"> 
+            <h3 style="background-color: rgb(247, 245, 245); padding-left:25%">{{group.name}}</h3>
+            
+   
+            
+               <h3>{{group.description_html|safe}}</h3> 
                 <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <span class='badge'>{{group.members.count}}</span>
                     member{{group.members.count|pluralize}}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <span class='badge'>{{group.posts.count}}</span>
                     post{{group.posts.count|pluralize}}
 
@@ -51,6 +72,8 @@
         {%endfor%}
     </div>
 </div>
+</div>
+
 {%endblock%}
 
 

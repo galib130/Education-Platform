@@ -34,9 +34,14 @@
 
 {%block post_content%}
 <div class="col-md-8">
+    <br>
+    <br>
     {%for post in post_list%}
-    {% if user in post.group.members.all %}
+    {% if user in post.group.members.all and '@' not in post.group.name.0 and '#' not in post.group.name.0 %}
+    
     {%include "posts/_post.html"%}
+   
+    
     {%endif%}
     {%endfor%}
 </div>

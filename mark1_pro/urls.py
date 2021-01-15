@@ -25,9 +25,9 @@ urlpatterns = [
     url(r'^$',views.HomePage.as_view(),name='home'),
     url(r'accounts/',include('accounts.urls',namespace='accounts')),
     url(r'accounts/',include('django.contrib.auth.urls')),
-    url(r'^in/$', views.InPage.as_view(),name="in"),
+    url(r'^$', views.InPage.as_view(),name="in"),
     
-    url(r'^out/$', views.OutPage.as_view(),name="out"),
+    url(r'^$', views.OutPage.as_view(),name="out"),
 
     url(r'^posts/',include('posts.urls',namespace='posts')),
     url(r'^groups/',include('groups.urls',namespace='groups')),

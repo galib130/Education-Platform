@@ -28,10 +28,23 @@
 </div>
 {%endblock%}
 {%block group_content%}
+<style>
+    .groupy{
+        padding-left: 20%;
+        width:1000px;
+        background-color: rgb(247, 247, 247);
+
+        
+    }
+    .list-group{
+        padding-left:50%
+    }
+</style>
 <div class="col-md-9">
     <div class="list-group">
         {%for group in allGroups%}
         <a href="{% url 'groups:single' slug=group.slug%}">
+            <div class=groupy>
             <h3>{{group.name}}</h3>
             <div class="container-fluid">
                 {{group.description_html|safe}}
@@ -43,10 +56,11 @@
                 <div class="col-md-4">
                     <span class='badge'>{{group.posts.count}}</span>
                     post{{group.posts.count|pluralize}}
-
+                </div>
                 </div>
             </div>
         </div>
+    
         </a>
         {%endfor%}
     </div>

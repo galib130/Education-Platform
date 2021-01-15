@@ -30,7 +30,7 @@ class JoinGroup(LoginRequiredMixin,generic.RedirectView):
 
         try:
             GroupMember.objects.create(user=self.request.user,group=group)
-
+        
         except :
             messages.warning(self.request,'Warning already a member!')
         else:
@@ -58,7 +58,6 @@ class LeaveGroup(LoginRequiredMixin,generic.RedirectView):
         return super().get(request,*args,**kwargs)
 
     
-
 
 
 

@@ -1,8 +1,70 @@
-<div class="post media">
-    <h3>{{post.question_html|safe}}</h3>
+{%load static%}
 
-{%if post.video%}
-<video width="900" height="500" class ="video-fluid" controls >
+
+
+     <style>
+        .outer{
+            padding-left: 45%;
+            padding-right: 0%;
+            width:1400px;
+            
+          }
+        .media-body{
+            border-color: rgb(78, 78, 78);
+            border-radius: 10px;
+            border-width: 20px;
+            border-style: solid;
+            padding-left: 10%;
+           border: rgb(78, 78, 78);
+           
+           background-color: rgb(233, 233, 233) ;
+           
+          }
+          .post-media{
+            border-color: rgb(139, 139, 139);
+            border-radius: 10px;
+            border-width: 5px;
+            width:fit-content;
+           padding-left:3%;
+             padding-right:3%;
+           
+           background-color:  rgb(233, 233, 233)  ;
+           
+           border-style: solid;
+           
+          
+
+        }
+
+        .comtext{
+            background-color: aliceblue;
+        }
+        .comtext2{
+            background-color: aliceblue;
+        }
+        .comment{
+            border-style:ridge;
+            border-radius: 10px;
+        }
+
+        .size{
+            width:min-content 
+        }
+
+     </style>
+
+{%if post.user in post.group.members.all %}
+<div class="outer">
+    <br>
+    <br>
+<div class="post-media">
+   
+  
+    <h3 id="size">{{post.question_html|safe}}</h3>
+   
+
+{%if post.video%}   
+<video width="800" height="500" class ="video-fluid" controls >
 <source src="{{post.video.url}}" type="video/mp4"/>
 </video>
 {%endif%}
@@ -10,6 +72,7 @@
 {%if post.image%}
 <img src="{{post.image.url}}" class="img-responsive"width="500" height="500" >
 {%endif%}
+
 
 
 <div class="media-body">
@@ -40,16 +103,18 @@
     
 </div>
 
-<a class="btn btn-primary" href="{%url 'posts:add_comment' pk=post.pk%}">Answer</a>
-<div class="container">
+<div class="comment">
+
+    <a class="btn btn-primary" href="{%url 'posts:add_comment' pk=post.pk%}">Answer</a>
     
     <h5>Answers:</h5>
     {%for comment in post.comments.all%}
-    <br>
+    
 
     {%if user.is_authenticated or comment.approved_comment%}
     {{comment.created_date}}
-    {%if not comment.approved_comment%}
+    {%if not comment.approved_comment %}
+
     <a href="{% url 'posts:comment_remove'  pk=comment.pk %}" title="remove" class='btn btn-simple'>
         <span class='glyphicon glyphicon-remove text-danger' aria-hidden="true">
 
@@ -63,21 +128,28 @@
         </span>
         <span class='text-danger icon-label'>Approve</span>
     </a>
+   
     {%endif%}
-    <p>{{comment.text|safe|linebreaks}}</p>
-    <p>Answered by:{{comment.author}}</p>
+    
+    
+    <h3>{{comment.text|safe|linebreaks}}</h3>
+    <p class="comtext">Answered by:{{comment.author}}</p>
     
 <form action="{% url 'posts:like' pk=comment.pk%}" method="POST">
     {%csrf_token%}
-    <button type="submit", name="post_id",value="{{post.id}}",class="btn btn-primary btn-sm">Vote</button>: {{comment.total_likes}}
-    
+  
+    <button type="submit", name="post_id",value="{{post.id}}",class="btn btn-primary btn-sm" style="background-color: rgb(172, 172, 255);">Vote</button>: {{comment.total_likes}}
 </form>
     {%endif%}
-    
+    <br>    
     {%endfor%}
+   
 
 </div>
 </div>
 
 
 </div>
+</div>
+
+{%endif%}

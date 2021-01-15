@@ -16,9 +16,9 @@ class Post(models.Model):
     created_at= models.DateTimeField( auto_now=True)
     question=RichTextField(blank=True,null=True)
     #question=models.TextField()
-    question_html=models.TextField(editable=False)
+    question_html=RichTextField(editable=False)
     group =models.ForeignKey(Group,related_name='posts',null=True,blank=False,on_delete=models.CASCADE)
-    video=models.FileField(unique=False,upload_to="video/%y",null=True,blank=True)
+    video=models.FileField(upload_to="video/%y",null=True,blank=True)
     image=models.FileField(null=True,blank=True)
 
     #caption=models.CharField(max_length=250,null=True,blank=True)
@@ -26,7 +26,9 @@ class Post(models.Model):
     
     def save(self,*args,**kwargs):
         self.question_html=misaka.html(self.question)
+        
         super().save(*args,**kwargs)
+
 
     def get_absolute_url(self):
         return reverse("posts:single", kwargs={"pk": self.pk,'username':self.user.username})
@@ -36,7 +38,6 @@ class Post(models.Model):
     
     class Meta:
         ordering=['-created_at']
-        unique_together=['user','question']
     def __str__(self):
         return self.question
     
@@ -44,11 +45,11 @@ class Post(models.Model):
 class Comment(models.Model):
     post=models.ForeignKey(Post,related_name='comments',on_delete=models.CASCADE)
     author=models.CharField(max_length=200)
-    text=models.TextField()
+    text=RichTextField(blank=True,null=True)
     created_date =models.DateTimeField(auto_now=True)
     approved_comment=models.BooleanField(default=False)
     likes=models.ManyToManyField(User,related_name='like_posts')    
-
+    
     def approve(self):
         self.approved_comment=True
         self.save()
@@ -62,4 +63,6 @@ class Comment(models.Model):
     
     def __str__(self):
         return self.text
+
+
 
